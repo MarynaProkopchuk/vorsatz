@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Tap List</title>
+</head>
+<body>
+    <h1>Список всіх записів</h1>
+
+    <!-- Кнопка для додавання нової позиції -->
+    <a href="{% url 'on_tap:on_tap_create' %}" class="btn btn-primary">Додати позицію</a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Назва</th>
+                <th>Виробник</th>
+                <th>Алкоголь</th>
+                <th>IBU</th>
+                <th>Стиль</th>
+                <th>Ціна</th>
+                <th>Є в наявності</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in on_tap_items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.production }}</td>
+                    <td>{{ item.alcohol }}</td>
+                    <td>{{ item.ibu }}</td>
+                    <td>{{ item.style }}</td>
+                    <td>{{ item.price }} грн</td>
+                    <td>{{ item.available|yesno:"В наявності,Немає в наявності" }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7">Жодного запису не знайдено</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
